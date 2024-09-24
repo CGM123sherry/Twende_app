@@ -18,8 +18,12 @@ class Passenger(Base):
     # one-to-many relationship
     ride_requests = relationship("RideRequest", back_populates="passenger")
 
+    def __repr__(self):
+        return f"Passager ID: {self.id}, name: {self.name} phone number: {self.phone_number}" 
+
 # driver class
 class Driver(Base):
+
     __tablename__ = 'drivers'
 
     id = Column(Integer(), primary_key=True)
@@ -29,6 +33,9 @@ class Driver(Base):
 
     # one-to-one relationship
     cab = relationship("Cab", back_populates="driver")
+
+    def __repr__(self):
+        return f"Driver ID: {self.id}, driver name: {self.name}"
 
 # cab class
 class Cab(Base):
@@ -43,6 +50,9 @@ class Cab(Base):
     driver = relationship("Driver", back_populates="cab")
     ride_requests = relationship("RideRequest", back_populates="cab")
 
+    def __repr__(self):
+        return f"Cab ID: {self.id}, license number: {self.license_number}"
+
 # riderequest class
 class RideRequest(Base):
     __tablename__ = 'ride_requests'
@@ -55,3 +65,6 @@ class RideRequest(Base):
     # one-to-many relationship
     passenger = relationship("Passenger", back_populates="ride_requests")
     cab = relationship("Cab", back_populates="ride_requests")
+
+    def __repr__(self):
+        return f"RideRequest ID: {self.id}, location of the request: {self.location}"
